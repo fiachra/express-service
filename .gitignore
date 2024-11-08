@@ -3,6 +3,7 @@ node_modules
 .DS_Store
 dist/
 config/development.json
+config/production.json
 logs/
 scratch/
 docs/

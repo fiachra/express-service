@@ -1,0 +1,7 @@
+### Health Check
+GET http://localhost:3000/system/health
+Content-Type: application/json
+
+### Version Check
+GET http://localhost:3000/system/version
+Content-Type: application/json

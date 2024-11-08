@@ -5,16 +5,12 @@ import dotenv from 'dotenv';
 import express, { Express } from 'express';
 import helmet from 'helmet';
 import swaggerUi from 'swagger-ui-express';
+import { ExpressAuth } from "@auth/express"
 
-// import { generateSpec } from './libs/utils';
-// import { startSchedule } from './libs/utils/manageLifecycle';
+import { generateSpec } from './lib/utils';
 // import { errorHandler } from './middleware/errors';
-// import morganMiddleware from './middleware/morgan';
-// import env from './routes/environments';
-// import operations from './routes/operations';
-// import sn from './routes/snapshots';
-// import system from './routes/system';
-// import apiKeysRouter from './routes/apiKeys';
+import morganMiddleware from './middleware/morgan';
+import system from './routes/system';
 
 dotenv.config();
 
@@ -35,15 +31,15 @@ const corsOptions = {
 const app: Express = express();
 
 app.use(cors(corsOptions));
-// app.use(morganMiddleware);
+app.use(morganMiddleware);
 app.use(helmet());
 app.use(cookieParser());
 
 // app.use(errorHandler);
 app.use(express.json());
-// const apiSpec = generateSpec();
-// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(apiSpec));
-// app.use('/system', system);
+const apiSpec = generateSpec();
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(apiSpec));
+app.use('/system', system);
 // app.use('/environments', env);
 // app.use('/snapshots', sn);
 // app.use('/operations', operations);
