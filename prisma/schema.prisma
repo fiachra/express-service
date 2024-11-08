@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator jsonSchema {
+  provider                 = "prisma-json-schema-generator"
+  output                   = "../openapi/"
+  keepRelationScalarFields = "true" // default is "false"
+  keepRelationFields       = "false" // default is "true"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AuditAction {
+  CREATE_USER
+}
+
+model Audit {
+  id       Int         @id @default(autoincrement())
+  action   AuditAction
+  user     User        @relation(fields: [userId], references: [id])
+  userId   Int         @default(1)
+  actionAt DateTime    @default(now()) @db.Timestamptz(6)
+  metadata Json
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String?  @unique
+  name      String
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime @updatedAt @db.Timestamptz(6)
+  password  String?
+  Audit     Audit[]
+}

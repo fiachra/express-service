@@ -1,0 +1,181 @@
+{
+  "env": {
+    "browser": false,
+    "es2021": true,
+    "jest/globals": true
+  },
+  "ignorePatterns": [
+    "**/dist/",
+    "**/coverage/",
+    "**/build/",
+    "**/node_modules/",
+    "/package-lock.json"
+  ],
+  "globals": {
+    "VERSION": "readonly",
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/*.md"
+      ],
+      "plugins": [
+        "markdown"
+      ],
+      "extends": [
+        "plugin:markdown/recommended"
+      ],
+      "processor": "markdown/markdown"
+    },
+    {
+      "files": [
+        "**/*.ts"
+      ],
+      "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:jest/recommended",
+        "plugin:jest/style",
+        "plugin:import/recommended",
+        "plugin:import/typescript",
+        "standard",
+        "prettier"
+      ],
+      "plugins": [
+        "import",
+        "jest",
+        "@typescript-eslint",
+        "prettier"
+      ],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "ecmaFeatures": {
+          "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+      },
+      "rules": {
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/camelcase": "off",
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/no-empty-function": "off",
+        "@typescript-eslint/no-explicit-any": "warn",
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/no-unused-vars": "error",
+        "@typescript-eslint/no-use-before-define": "off",
+        "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/no-warning-comments": "off",
+        "no-use-before-define": "off",
+        "node/no-missing-import": "off",
+        "node/no-empty-function": "off",
+        "node/no-unsupported-features/es-syntax": "off",
+        "node/no-missing-require": "off",
+        "node/shebang": "off",
+        "no-dupe-class-members": "off",
+        "require-atomic-updates": "off",
+        "no-unused-vars": "off",
+        "camelcase": "off",
+        "curly": [
+          "error",
+          "all"
+        ],
+        "linebreak-style": [
+          "error",
+          "unix"
+        ],
+        "newline-before-return": "error",
+        "no-else-return": "error",
+        "no-param-reassign": "error",
+        "nonblock-statement-body-position": [
+          "error",
+          "beside"
+        ],
+        "object-shorthand": "error",
+        "prettier/prettier": [
+          "error",
+          {
+            "useTabs": false,
+            "trailingComma": "es5",
+            "singleQuote": true,
+            "tabWidth": 2,
+            "endOfLine": "auto",
+            "jsxSingleQuote": true,
+            "quoteProps": "consistent",
+            "printWidth": 120
+          }
+        ],
+        "no-useless-constructor": "off",
+        "prefer-destructuring": [
+          "error",
+          {
+            "object": true,
+            "array": false
+          }
+        ],
+        "import/no-unresolved": "off",
+        "import/order": [
+          "error",
+          {
+            "groups": [
+              "builtin",
+              "external",
+              "internal",
+              [
+                "sibling",
+                "parent"
+              ],
+              "index",
+              "unknown"
+            ],
+            "pathGroups": [
+              {
+                "pattern": "@{axon,medable}/**",
+                "group": "external",
+                "position": "after"
+              },
+              {
+                "pattern": "{apps,libs,scripts,services,templates}.**",
+                "group": "external",
+                "position": "after"
+              }
+            ],
+            "pathGroupsExcludedImportTypes": [
+              "@{axon,medable}/**"
+            ],
+            "newlines-between": "always",
+            "alphabetize": {
+              "order": "asc",
+              "caseInsensitive": true
+            }
+          }
+        ],
+        "import/no-named-as-default": "off"
+      },
+      "settings": {
+        "react": {
+          "version": "detect"
+        }
+      }
+    },
+    {
+      "files": [
+        "**/*.json"
+      ],
+      "plugins": [
+        "json-format"
+      ],
+      "settings": {
+        "json/sort-package-json": "standard",
+        "json/json-with-comments-files": []
+      }
+    }
+  ]
+}
