@@ -6,9 +6,10 @@ import express, { Express } from 'express';
 import helmet from 'helmet';
 import swaggerUi from 'swagger-ui-express';
 import { ExpressAuth } from "@auth/express"
+import config from 'config';
 
 import { generateSpec } from './lib/utils';
-// import { errorHandler } from './middleware/errors';
+import { errorHandler } from './middleware/error-handling';
 import morganMiddleware from './middleware/morgan';
 import system from './routes/system';
 
@@ -35,15 +36,16 @@ app.use(morganMiddleware);
 app.use(helmet());
 app.use(cookieParser());
 
-// app.use(errorHandler);
-app.use(express.json());
-const apiSpec = generateSpec();
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(apiSpec));
-app.use('/system', system);
-// app.use('/environments', env);
-// app.use('/snapshots', sn);
-// app.use('/operations', operations);
-// app.use('/api-keys', apiKeysRouter);
 
+app.use(express.json());
+
+if(config.get('publicApiDocs')) {
+  const apiSpec = generateSpec();
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(apiSpec));
+}
+
+app.use('/system', system);
+
+app.use(errorHandler);
 
 export default app;
